@@ -53,7 +53,7 @@ export const StringComponent: React.FC = () => {
     <SolutionLayout title="Строка">
       <form onSubmit={event => reverseString(event)} className={styles.wrapper}>
         <Input childRef={valueRef} changeValue={inputChange} extraClass={styles.input} placeholder="Введите текст" isLimitText={true} type="text" maxLength={11}/>
-        <Button isLoader={loader} text="Развернуть" type="submit"/>
+        <Button isLoader={loader} disabled={!string || !valueRef.current?.value} text="Развернуть" type="submit"/>
       </form>
       <div className={styles.container}>
         {

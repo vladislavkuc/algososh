@@ -72,7 +72,7 @@ export const ListPage: React.FC = () => {
     if (index < 0 || !value || index > array.length - 1){
       return
     }
-    
+
     valueRef.current!.value = '';
     indexRef.current!.value = '';
 
@@ -179,7 +179,7 @@ export const ListPage: React.FC = () => {
           <Button
             isLoader={loader === 'addmiddle'}
             linkedList="big"
-            disabled={loader !== '' || index === -1}
+            disabled={loader !== '' || index < 0 || !indexRef.current!.value || !valueRef.current!.value || index > array.length - 1}
             text="Добавить по индексу"
             type="button"
             onClick={e => addByIndex(e)}
@@ -187,7 +187,7 @@ export const ListPage: React.FC = () => {
           <Button
             isLoader={loader === 'remmiddle'}
             linkedList="big"
-            disabled={loader !== '' || index === -1}
+            disabled={loader !== '' || index < 0 || !indexRef.current!.value || index > array.length - 1}
             text="Удалить по индексу"
             type="button"
             onClick={e => deleteByIndex(e)}

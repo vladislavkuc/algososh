@@ -25,7 +25,7 @@ export const QueuePage: React.FC = () => {
     if (!value || queue.isFull()) {
       return;
     }
-    
+
     valueRef.current!.value = '';
 
     setLoader('add');
@@ -83,7 +83,7 @@ export const QueuePage: React.FC = () => {
     <SolutionLayout title="Очередь">
       <form onSubmit={e => addElement(e)} className={styles.wrapper}>
         <Input childRef={valueRef} changeValue={inputChange} extraClass={styles.input} placeholder="Введите текст" isLimitText={true} type="text" maxLength={5}/>
-        <Button isLoader={loader === 'add'} extraClass="mr-6" disabled={loader !== '' || queue.isFull()} text="Добавить" type="submit"/>
+        <Button isLoader={loader === 'add'} extraClass="mr-6" disabled={loader !== '' || queue.isFull() || !valueRef.current?.value} text="Добавить" type="submit"/>
         <Button isLoader={loader === 'delete'} extraClass="mr-40" disabled={loader !== '' || queue.isEmpty()} text="Удалить" type="button" onClick={e => deleteElement(e)}/>
         <Button isLoader={loader === 'clear'} disabled={loader !== '' || queue.isEmpty()} text="Очистить" type="button" onClick={e => clearStack(e)}/>
       </form>

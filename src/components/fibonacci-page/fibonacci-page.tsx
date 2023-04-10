@@ -29,6 +29,7 @@ export const FibonacciPage: React.FC = () => {
         setTimeout((array) => {setNumbers(array)}, (i + 1)* 500, [...array.slice(0, i + 1)]);
       };
       setTimeout(() => {setLoader(false)}, (inputValue + 1) * 500);
+
     };
   };
 
@@ -36,7 +37,7 @@ export const FibonacciPage: React.FC = () => {
     <SolutionLayout title="Последовательность Фибоначчи">
       <form onSubmit={event => calculateFibonacci(event)} className={styles.wrapper}>
         <Input childRef={valueRef} changeValue={inputChange} extraClass={styles.input} placeholder="Введите текст" isLimitText={true} type="number" max={19}/>
-        <Button isLoader={loader} extraClass={styles.button} text="Рассчитать" type="submit"/>
+        <Button disabled={!inputValue || !valueRef.current!.value || inputValue < 0 || inputValue > 19} isLoader={loader} extraClass={styles.button} text="Рассчитать" type="submit"/>
       </form>
       <div className={styles.container}>
         <div className={`${styles["first-row"]} ${styles.row}`}>

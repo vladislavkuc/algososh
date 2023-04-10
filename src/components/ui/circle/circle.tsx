@@ -8,7 +8,6 @@ interface CircleProps {
   head?: string | React.ReactElement | null;
   index?: number;
   tail?: string | React.ReactElement | null;
-  tailType?: "string" | "element";
   extraClass?: string;
   isSmall?: boolean;
 }

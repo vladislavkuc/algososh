@@ -1,0 +1,44 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+  justify-content: center;
+}
+
+.input {
+  max-width: 377px;
+  margin-right: 12px;
+}
+
+.button {
+  padding: 18px 48px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 0 0;
+  gap: 48px;
+}
+
+.row {
+  width: 100%;
+  max-width: 944px;
+  gap: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+.first-row {
+  justify-content: center;
+}
+
+.second-row {
+  justify-content: start;
+}

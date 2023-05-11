@@ -1,16 +1,19 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import styles from './string.module.css';
 import { Circle } from "../ui/circle/circle";
 import { ElementStates } from "../../types/element-states";
-import { TLetter } from "../../types/letter";
+import { getReverseStringSteps } from "./utils";
 
 export const StringComponent: React.FC = () => {
   const [loader, setLoader] = useState(false);
   const [string, setString] = useState('');
-  const [circles, setCircles] = useState<Array<TLetter>>([]);
+  const [timer, setTimer] = useState<NodeJS.Timer>();
+  const [letters, setLetters] = useState<Array<string>>([]);
+  const [startIndex, setStartIndex] = useState<number>();
+  const [endIndex, setEndIndex] = useState<number>();
 
   const valueRef = useRef<HTMLInputElement>(null);
 
@@ -22,31 +25,33 @@ export const StringComponent: React.FC = () => {
     e.preventDefault();
     valueRef.current!.value = '';
     setLoader(true);
-    const length = string.length;
-    setTimeout(() => {setLoader(false)}, Math.floor((length + 1) / 2) * 1000);
+    const steps = getReverseStringSteps(string);
 
-    const array: TLetter[] = string.split('').map(letter => { return { letter, state: ElementStates.Default}});
-    const middle = Math.floor(length / 2);
+    const stepsIterator = setInterval(() => {
+      if (steps.length > 0) {
+        const step = steps.shift()!;
+        setLetters([...step.currentState]);
+        setStartIndex(step.startIndex);
+        setEndIndex(step.endIndex);
+      } else {
+        setLoader(false);
+        clearInterval(stepsIterator);
+      }
+    }, 500);
 
-    array[0].state = ElementStates.Changing;
-    array[length - 1].state = ElementStates.Changing;
+    setTimer(stepsIterator);
+  };
 
-    setCircles(JSON.parse(JSON.stringify(array)));
-
-    for (let i = 0; i < middle; i++) {
-      const letter = array[i].letter;
-      array[i].letter = array[length - i - 1].letter;
-      array[length - i - 1].letter = letter;
-      array[i].state = ElementStates.Modified;
-      array[length - i - 1].state = ElementStates.Modified;
-      array[i + 1].state = ElementStates.Changing;
-      array[length - i - 2].state = ElementStates.Changing;
-      setTimeout((arr) => { setCircles(arr) }, (i+1)*1000, JSON.parse(JSON.stringify(array)));
+  const hadleLetterState = (index: number): ElementStates => {
+    if (startIndex && endIndex && (index < startIndex || index > endIndex)) {
+      return ElementStates.Modified;
     }
 
-    array[middle].state = ElementStates.Modified;
-    array[middle - 1].state = ElementStates.Modified;
-    setTimeout((arr) => {setCircles(arr)}, Math.floor((length + 1) / 2) * 1000, [...array]);
+    if (startIndex && endIndex && (index === startIndex || index === endIndex)) {
+      return ElementStates.Changing;
+    }
+
+    return ElementStates.Default;
   };
 
   return (
@@ -57,7 +62,7 @@ export const StringComponent: React.FC = () => {
       </form>
       <div className={styles.container}>
         {
-          circles.map((char, index) => <Circle key={index} tail={String(index)} state={char.state} letter={char.letter}></Circle>)
+          letters.map((letter, index) => <Circle key={index} tail={String(index)} state={hadleLetterState(index)} letter={letter}></Circle>)
 				}
       </div>
     </SolutionLayout>

@@ -4,175 +4,100 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Button } from "../ui/button/button";
 import { RadioInput } from "../ui/radio-input/radio-input";
 import { Direction } from "../../types/direction";
-import { TNumber } from "../../types/array-element";
 import { ElementStates } from "../../types/element-states";
 import { Column } from "../ui/column/column";
+import { getRandomArr, getSortStepsByBubble, getSortStepsBySelection } from "./utils";
 
 export const SortingPage: React.FC = () => {
-  const [loader, setLoader] = useState('');
-  const [method, setMethod] = useState('');
-  const [array, setArray] = useState<Array<TNumber>>([]);
+  const [loader, setLoader] = useState<Direction | '' | 'create'>('');
+  const [method, setMethod] = useState<'bubble' | 'selection'>('selection');
+  const [array, setArray] = useState<Array<number>>([]);
+  const [sortedIndexes, setSortedIndexes] = useState<Array<number>>([]);
+  const [selectedIndexes, setSelectedIndexes] = useState<Array<number>>([]);
+  const [stepsController, setStepsController] = useState<NodeJS.Timer>();
 
   const changeMethod = (value: string) => {
-    setMethod(value);
+    setMethod(value === 'bubble' || value === 'selection' ? value : 'selection');
   };
 
-  const selectionSort = (direction: string) => {
-    let seconds = 0;
-    setLoader(direction);
-    const arr = JSON.parse(JSON.stringify(array));
-    const { length } = arr;
-    for (let i = 0; i < length; i++) {
+  const sortArray = (event: SyntheticEvent, direction: Direction) => {
+    event.preventDefault();
+    const steps = method === 'bubble'
+    ? getSortStepsByBubble([...array], direction)
+    : getSortStepsBySelection([...array], direction);
 
-      arr[i].state = ElementStates.Changing;
-      setTimeout((copy) => {setArray(copy)}, seconds*250, JSON.parse(JSON.stringify(arr)));
-      seconds++;
-
-      let ind = i;
-      for (let j = i+1; j < length; j++) {
-        arr[j].state = ElementStates.Changing;
-        setTimeout((copy) => {setArray(copy)}, seconds*250, JSON.parse(JSON.stringify(arr)));
-        arr[j].state = ElementStates.Default;
-        setTimeout((copy) => {setArray(copy)}, (seconds+1)*250, JSON.parse(JSON.stringify(arr)));
-
-        if ((arr[ind].value < arr[j].value && direction === 'descending')
-        || (arr[ind].value > arr[j].value && direction === 'ascending')) {
-          ind = j;
-        };
-        seconds++;
-      };
-      const temp = arr[i].value;
-      arr[i].value = arr[ind].value;
-      arr[ind].value = temp;
-
-      arr[i].state = ElementStates.Modified;
-      setTimeout((copy) => {setArray(copy)}, seconds*250, JSON.parse(JSON.stringify(arr)));
-    }
-
-    setTimeout((copy) => {
-      setArray(copy);
-      setLoader('');
-    }, seconds*250, JSON.parse(JSON.stringify(arr)));
-  };
-
-  function bubbleSort(direction: string) {
-    let seconds = 0;
-    setLoader(direction);
-    const arr = JSON.parse(JSON.stringify(array));
-    const { length } = arr;
-
-    for (let j = length - 1; j > 0; j--) {
-      for (let i = 0; i < j; i++) {
-        arr[i].state = ElementStates.Changing;
-        arr[i + 1].state = ElementStates.Changing;
-        setTimeout((copy) => {setArray(copy)}, seconds*500, JSON.parse(JSON.stringify(arr)));
-
-        seconds++;
-
-        arr[i].state = ElementStates.Default;
-        arr[i + 1].state = ElementStates.Default;
-        setTimeout((copy) => {setArray(copy)}, seconds*500, JSON.parse(JSON.stringify(arr)));
-
-        if ((arr[i].value < arr[i + 1].value && direction === 'descending')
-        || (arr[i].value > arr[i + 1].value && direction === 'ascending')) {
-          const temp = arr[i].value;
-          arr[i].value = arr[i + 1].value;
-          arr[i + 1].value = temp;
-        }
+    const stepsIterator = setInterval(() => {
+      if (steps.length > 0) {
+        setLoader(direction);
+        const step = steps.shift()!;
+        setArray([...step.currentState]);
+        setSortedIndexes([...step.sortedIndexes]);
+        setSelectedIndexes([...step.selectedIndexes]);
+      } else {
+        setLoader('');
+        clearInterval(stepsIterator);
       }
+    }, 250);
 
-      arr[j].state = ElementStates.Modified;
-      setTimeout((copy) => {setArray(copy)}, seconds*500, JSON.parse(JSON.stringify(arr)));
-    }
-
-    arr[0].state = ElementStates.Modified;
-    setTimeout((copy) => {
-      setArray(copy);
-      setLoader('');
-    }, seconds*500, JSON.parse(JSON.stringify(arr)));
-  }
-
-  const sortArrDescending = (e: SyntheticEvent) => {
-    e.preventDefault();
-    if (method === ''){
-      return
-    };
-
-    if (method === 'buble') {
-      bubbleSort('descending');
-    }
-
-    if (method === 'selection'){
-      selectionSort('descending');
-    }
+    setStepsController(stepsIterator);
   };
 
-  const sortArrAscending = (e: SyntheticEvent) => {
-    e.preventDefault();
-    if (method === ''){
-      return
-    };
-
-    if (method === 'buble') {
-      bubbleSort('ascending');
+  const handleColumnState = (index: number): ElementStates => {
+    if (sortedIndexes.includes(index)) {
+      return ElementStates.Modified;
     }
 
-    if (method === 'selection'){
-      selectionSort('ascending');
+    if (selectedIndexes.includes(index)) {
+      return ElementStates.Changing;
     }
-  };
 
-  const randomArr = () => {
-    const arr = [];
-    const length = Math.floor(Math.random()*15) + 3;
-    for (let i = 0; i < length; i++){
-      arr.push({
-        value: Math.floor(Math.random()*100),
-        state: ElementStates.Default
-      });
-    };
-
-    return [...arr]
+    return ElementStates.Default;
   };
 
   const handleCreateArr = (e: SyntheticEvent) => {
     e.preventDefault();
+    clearInterval(stepsController);
+    setArray([]);
+    setSelectedIndexes([]);
+    setSortedIndexes([]);
     setLoader('create');
 
     setTimeout((arr) => {
       setArray(arr);
-    }, 500, [...randomArr()]);
+    }, 250, [...getRandomArr()]);
 
     setTimeout(() => {
       setLoader('');
-    }, 1000);
+    }, 500);
   };
 
   useEffect(() => {
-    setArray(randomArr());
+    setArray(getRandomArr());
+
+    return () => { clearInterval(stepsController) };
   }, []);
 
   return (
     <SolutionLayout title="Сортировка массива">
       <form className={styles.wrapper}>
         <RadioInput extraClass={`${styles.radio}  mr-20`} label='Выбор' value='selection' name="method" changeValue={changeMethod}/>
-        <RadioInput extraClass={`${styles.radio} ${styles['input-margin']}`} label='Пузырёк' value='buble' name="method" changeValue={changeMethod}/>
-        <Button isLoader={loader === 'ascending'}
+        <RadioInput extraClass={`${styles.radio} ${styles['input-margin']}`} label='Пузырёк' value='bubble' name="method" changeValue={changeMethod}/>
+        <Button isLoader={loader === Direction.Ascending}
           sorting={Direction.Ascending}
           extraClass="mr-6"
           disabled={loader !== ''}
           text="По возрастанию"
           type="button"
-          onClick={e => sortArrAscending(e)}
+          onClick={e => sortArray(e, Direction.Ascending)}
         />
         <Button
-          isLoader={loader === 'descending'}
+          isLoader={loader === Direction.Descending}
           sorting={Direction.Descending}
           extraClass="mr-40"
           disabled={loader !== ''}
           text="По убыванию"
           type="button"
-          onClick={e => sortArrDescending(e)}
+          onClick={e => sortArray(e, Direction.Descending)}
         />
         <Button
           isLoader={loader === 'create'}
@@ -184,11 +109,11 @@ export const SortingPage: React.FC = () => {
       </form>
       <div className={styles.container}>
         {
-          array.map((char, index) =>
+          array.map((num, index) =>
             <Column
               key={index}
-              index={char.value}
-              state={char.state}
+              index={num}
+              state={handleColumnState(index)}
             />)
 				}
       </div>

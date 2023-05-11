@@ -1,7 +1,7 @@
-import renderer from 'react-test-renderer'
+import renderer from 'react-test-renderer';
 
-import { Circle } from './circle';
-import { ElementStates } from '../../../types/element-states';
+const { Circle } = jest.requireActual('./circle');
+const { ElementStates } = jest.requireActual('../../../types/element-states');
 
 it('Круг с текстом отрисовывается корректно', () => {
   const tree = renderer

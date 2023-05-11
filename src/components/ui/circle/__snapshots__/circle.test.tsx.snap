@@ -1,0 +1,326 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Круг без текста отрисовывается корректно 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined   undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    />
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;
+
+exports[`Круг в состоянии changing отрисовывается корректно 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined   undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    >
+      abc
+    </p>
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;
+
+exports[`Круг в состоянии default отрисовывается корректно 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined   undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    >
+      abc
+    </p>
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;
+
+exports[`Круг в состоянии modified отрисовывается корректно 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined   undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    >
+      abc
+    </p>
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;
+
+exports[`Круг с текстом и head отрисовывается корректно 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  >
+    abc
+  </div>
+  <div
+    className="undefined   undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    >
+      abc
+    </p>
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;
+
+exports[`Круг с текстом и index отрисовывается корректно 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined   undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    >
+      abc
+    </p>
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  >
+    53
+  </p>
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;
+
+exports[`Круг с текстом и tail отрисовывается корректно 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined   undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    >
+      abc
+    </p>
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  >
+    abc
+  </div>
+</div>
+`;
+
+exports[`Круг с текстом и пропсом isSmall отрисовывается корректно 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined  undefined undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    >
+      abc
+    </p>
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;
+
+exports[`Круг с текстом и элементом в head отрисовывается корректно 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  >
+    <div
+      className="undefined "
+    >
+      <div
+        className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+      />
+      <div
+        className="undefined   undefined"
+      >
+        <p
+          className="text text_type_circle text_color_input undefined"
+        >
+          head
+        </p>
+      </div>
+      <p
+        className="text text_type_input text_color_input mt-4 undefined undefined"
+      />
+      <div
+        className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+      />
+    </div>
+  </div>
+  <div
+    className="undefined   undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    >
+      abc
+    </p>
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;
+
+exports[`Круг с текстом и элементом в tail отрисовывается корректно 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined   undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    >
+      abc
+    </p>
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  >
+    <div
+      className="undefined "
+    >
+      <div
+        className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+      />
+      <div
+        className="undefined   undefined"
+      >
+        <p
+          className="text text_type_circle text_color_input undefined"
+        >
+          tail
+        </p>
+      </div>
+      <p
+        className="text text_type_input text_color_input mt-4 undefined undefined"
+      />
+      <div
+        className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Круг с текстом отрисовывается корректно 1`] = `
+<div
+  className="undefined "
+>
+  <div
+    className="text text_type_input text_color_input mb-4 undefined undefined undefined"
+  />
+  <div
+    className="undefined   undefined"
+  >
+    <p
+      className="text text_type_circle text_color_input undefined"
+    >
+      abc
+    </p>
+  </div>
+  <p
+    className="text text_type_input text_color_input mt-4 undefined undefined"
+  />
+  <div
+    className="text text_type_input text_color_input mt-4 undefined undefined undefined"
+  />
+</div>
+`;

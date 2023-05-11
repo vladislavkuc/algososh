@@ -1,7 +1,7 @@
 import renderer from 'react-test-renderer'
-import { render, screen, fireEvent } from '@testing-library/react';
+const { render, screen, fireEvent } = jest.requireActual('@testing-library/react');
 
-import { Button } from './button';
+const { Button } = jest.requireActual('./button');
 
 it('Кнопка с текстом отрисовывается корректно', () => {
   const tree = renderer
@@ -34,7 +34,7 @@ it('Кнопка с текстом и индикацией загрузки от
 it('Нажатие на кнопку вызывает корректный callback', () => {
   window.alert = jest.fn();
 
-  render(<Button text='Вызвать alert' onClick={e => { alert('alert вызван успешно')}}/>)
+  render(<Button text='Вызвать alert' onClick={() => { alert('alert вызван успешно')}}/>)
 
   const button = screen.getByText("Вызвать alert");
 
